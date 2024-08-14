@@ -1,0 +1,265 @@
+{% extends 'master.html' %}
+ 
+{% block content %}
+    {% filter lower %}
+        <p style="font-weight: bolder;">Muhammad Aitzaz</p>
+    {% endfilter %}
+
+    <p style="font-style: italic;">Explorer of Life! {#  and world! #}</p>
+
+    <h2>Date & Time right now is: {% now "Y-M-D G:i:s" %}</h2>
+
+    {% comment 'this is a comment added by zaz' %}
+        <h1>Hey this is a comment to improve reading!</h1>
+    {% endcomment %}
+
+    {% for x in cars %}
+        {% ifchanged x.brand %}
+          <h1>{{ x.brand }}</h1>
+        {% endifchanged %}
+        <p>{{ x.model }}, {{ x.year }}</p>
+    {% endfor %}
+   
+    <h1>now template Tag</h1>
+    <p style="font-style: italic;"></p>
+
+
+    <div><h3>Any text goes below is generaeted by lorem tag of django templates.</h3>
+        <p>{% lorem 5 w %}</p>
+    </div>
+
+    <div>
+        <h2>regroup Template Tag</h2>
+        <p>
+            {% regroup cars by brand as newlist %}
+
+            <!-- {{ newlist }} -->
+
+            {% for x in newlist %}
+                <h1>{{ x.grouper }}</h1>
+                {% for y in x.list %}
+                    <p>{{ y.model }}, {{ y.year }}</p>
+                {% endfor %}
+            {% endfor %}
+        </p>
+    </div>
+
+    <div>
+        <h3>Reset Cycle Tag on Fruits List</h3>
+
+        {% for x in fruits %}
+            <li style = 'color: {% cycle 'red' 'green' 'blue' 'pink' %}'>
+                {{ x }}
+            </li>
+            {% if x == 'Banana' %}
+               {% resetcycle %} 
+            {% endif %}
+        {% empty %}
+            <li>No fruits</li>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h3>templatetag Tag</h3>
+        <p style="font-style: italic;">
+            It outputs a specified template tag
+        </p>
+
+        {% templatetag openblock %}
+            extends
+        {% templatetag closeblock %}
+        <br>
+        {% templatetag opencomment %}
+            comment
+        {% templatetag closecomment %}
+        <br>
+        {% templatetag openvariable %}
+            variable
+        {% templatetag closevariable %}
+
+
+    </div>
+
+    <div>
+        <h3>"is" operator</h3>
+        {% if x is y %}
+            <h4>Yes</h4>
+        {% else %}
+            <h4>No</h4>
+        {% endif %}
+    </div>
+
+    <div>
+        <h1>List of members</h1>
+        {{ mymembers }}
+        <br>Total Members: {{ mymembers.count }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+            </tr>
+
+            {% for m in mymembers %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Table with only list of Specific column</h3>
+        {{  mydata1 }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>Firstname</th>
+            </tr>
+
+            {% for f in mydata1 %}
+            <tr>
+                <td>{{ f }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Table with only list of Specific row/record</h3>
+        <p>Return only the records where firstname is 'Muhammad'</p>
+        {{  filtering_data }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Location</th>
+            </tr>
+
+            {% for m in filtering_data %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.location }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Table with only list of Specific row/record with specific Column</h3>
+        <p>Return only the records where firstname is 'Muhammad' and ID is '1'</p>
+        {{  filtering_data_with_s_r_c }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Location</th>
+            </tr>
+
+            {% for m in filtering_data_with_s_r_c %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.location }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Table with only list of Specific Rows with specific Column Using Q expressions</h3>
+        <p>Return only the records where firstname is 'Muhammad' and 'Ahmed'</p>
+        {{  filtering_data_with_s_r_c_Q }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Location</th>
+            </tr>
+
+            {% for m in filtering_data_with_s_r_c_Q %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.location }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Table with Field Lookups</h3>
+        <p>Return only the records where firstname starts with 'M'</p>
+        {{  mydata2 }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Location</th>
+            </tr>
+
+            {% for m in mydata2 %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.location }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+
+        <h3>Table with Order By</h3>
+        <p>Return the records by sorting them out by 'firstname'</p>
+        {{  ob_firstname }}
+        <br>Let's show this data in Table:
+
+        <table style="background-color: rgb(95, 190, 197); " border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Location</th>
+            </tr>
+
+            {% for m in ob_firstname %}
+            <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.firstname }}</td>
+                <td>{{ m.lastname }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.location }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+{% endblock %}

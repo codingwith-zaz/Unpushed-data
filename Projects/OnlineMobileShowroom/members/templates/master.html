@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'myfirst.css' %}">
+</head>
+<body>
+    
+    {% block content %}
+       <h2>Not registered yet!</h2> 
+    {% endblock %}
+
+    <p>Check out the two templates to see what they look like, and views.py to see the reference to the child template.</p>
+    
+    <!-- Footer Goes Here -->
+    {% include 'footer.html' with year="2024" sponsor="Muhamamd Aitzaz" %}
+
+</body>
+</html>

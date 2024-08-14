@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Testing</title>
+</head>
+<body>
+    {% autoescape off %}
+        <h1>{{ heading }}</h1>
+    {% endautoescape %}
+    
+    {% with firstname="Haider" lastname="Ali" %}
+    <h1>Hello {{ firstname }} {{ lastname }} , how are you?</h1>
+    {% endwith %}
+    
+    <p>In views.py you can see how to create the variable.</p>
+    <p>In template.html you can see how to use the variable.</p>
+    
+    {% if greeting == 1 %}
+        <h1>Hello</h1>
+    {% else %}
+        <h1>Bye</h1>
+    {% endif %}
+
+</body>
+</html>
